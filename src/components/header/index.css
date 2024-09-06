@@ -1,0 +1,48 @@
+header {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  background-color: rgb(146, 153, 160);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  text-align: center;
+  color: #333;
+  display: flex;
+  align-items: center;
+
+  .logo {
+    display: inline-block;
+    width: 80px;
+    height: 100%;
+  }
+
+  .navs {
+    height: 100%;
+    width: calc(100% - 80px);
+    display: inline-block;
+    align-items: end;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+
+    .contact-btn {
+      margin: 10px;
+      background-color: rgba(255, 255, 255, 0.611);
+      color: #171717;
+      border: none;
+      border-radius: 5px;
+      padding: 8px 16px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .contact-btn:hover {
+      background-color: rgba(116, 98, 98, 0.4); /* Lighter on hover */
+      color: #fff; /* White text on hover */
+    }
+  }
+}
