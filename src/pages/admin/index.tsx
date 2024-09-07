@@ -77,6 +77,10 @@ function Admin() {
     }
   };
 
+  const handleLogout = async () => {
+    await appwrite.logout();
+  };
+
   if (!isAdmin) {
     return <p>Loading...</p>;
   }
@@ -119,6 +123,9 @@ function Admin() {
         </button>
         {error && <p className="error-message">{error}</p>}
       </div>
+      <button className="logout-btn" onClick={handleLogout}>
+        logout
+      </button>
     </div>
   );
 }

@@ -1,10 +1,11 @@
-import { Account, Client, Databases, Query } from "appwrite";
+import { Account, Client, Databases, Storage, ID, Query } from "appwrite";
 import config from "../../config";
 
 class Appwrite {
   client: Client;
   account: Account;
   databases: Databases;
+  storage: Storage;
   databaseId: string;
   adminCollectionId: string;
   itemsCollectionId: string;
@@ -15,6 +16,7 @@ class Appwrite {
       .setProject(config.projectId);
     this.account = new Account(this.client);
     this.databases = new Databases(this.client);
+    this.storage = new Storage(this.client);
     this.databaseId = config.databaseId;
     this.adminCollectionId = config.adminCollectionId;
     this.itemsCollectionId = config.itemsCollectionId;
@@ -26,11 +28,22 @@ class Appwrite {
         email,
         password
       );
-      console.log(session);
       return session;
     } catch (error) {
       console.error("Login failed", error);
       throw error;
+    }
+  }
+
+  async logout() {
+    try {
+      const session = await this.account.getSession("current");
+      return await this.account.deleteSession(session.$id);
+    } catch (error) {
+      window.alert(
+        "An error occured during logout \nPlease check logs for details"
+      );
+      console.log(error);
     }
   }
 
@@ -51,14 +64,18 @@ class Appwrite {
 
   async uploadItem(name: string, price: number, imageFile: File) {
     try {
-      // Upload the image to Appwrite storage (add your logic here if needed)
-      const imageUploadResponse = await this.databases.createDocument(
+      const storageRes = await this.storage.createFile(
+        config.storageId,
+        ID.unique(),
+        imageFile
+      );
+      const dbResponse = await this.databases.createDocument(
         this.databaseId,
         this.itemsCollectionId,
-        "unique_id", // You can replace with ID logic
-        { name, price, imageFile: imageFile.name }
+        ID.unique(),
+        { name, price, imageFile: storageRes.$id }
       );
-      return imageUploadResponse;
+      return dbResponse;
     } catch (error) {
       console.error("Failed to upload item", error);
       throw error;

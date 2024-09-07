@@ -1,0 +1,36 @@
+/* Main container styling */
+.login-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+
+  input {
+    width: 250px;
+    height: 20px;
+    margin-bottom: 20px;
+    padding: 8px;
+    border: 2px solid #fff;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.8);
+    color: #333;
+  }
+
+  button {
+    width: 216px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #fff;
+    color: #2575fc;
+    cursor: pointer;
+    font-size: 16px;
+  }
+
+  .error-message {
+    color: #ff6b6b;
+    font-size: 14px;
+    margin-top: 10px;
+  }
+}
