@@ -1,0 +1,39 @@
+.prodTitle {
+  text-align: center;
+}
+
+.prods {
+  display: grid;
+  gap: 20px;
+}
+
+.prods li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  height: 350px;
+  width: 300px;
+  transition: transform 0.5s ease;
+}
+
+.prods li:hover {
+  transform: scale(1.1);
+}
+
+.prods img {
+  margin: 25px;
+  width: 250px;
+  height: auto;
+  display: block;
+}
+
+.prods h3 {
+  font-size: 40px;
+  text-align: center;
+  color: rgb(58, 4, 4);
+}

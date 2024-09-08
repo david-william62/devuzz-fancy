@@ -1,5 +1,6 @@
 import { appwrite } from "../../lib";
 import { useEffect, useState } from "react";
+import "./index.css";
 
 interface Item {
   name: string;
@@ -9,30 +10,26 @@ interface Item {
 
 function Items() {
   const [items, setItems] = useState<Item[]>([]);
-  const [loading, setLoading] = useState<boolean>(true); // State to track loading
+  const [loading, setLoading] = useState<boolean>(true);
 
   const getData = async () => {
     try {
       const itemList = await appwrite.getitems();
-
-      // Create an array of promises for image loading
       const imageLoadPromises = itemList.map(
         (item) =>
           new Promise((resolve) => {
             const img = new Image();
             img.src = item.image;
             img.onload = () => resolve(true);
-            img.onerror = () => resolve(false); // Resolve even if there's an error to avoid blocking
+            img.onerror = () => resolve(false);
           })
       );
-
       await Promise.all(imageLoadPromises);
-
       setItems(itemList);
-      setLoading(false); // Set loading to false when all images are loaded
+      setLoading(false);
     } catch (error) {
       console.error("Failed to fetch items", error);
-      setLoading(false); // Also stop loading on error
+      setLoading(false);
     }
   };
 
@@ -42,15 +39,17 @@ function Items() {
 
   return (
     <div>
-      <h1>Items</h1>
+      <h1 className="prodTitle">Products</h1>
       {loading ? (
         <p>Loading...</p>
       ) : items.length > 0 ? (
-        <ul>
+        <ul className="prods">
           {items.map((item) => (
             <li key={item.name}>
               <img src={item.image} alt={item.name} width="100" height="100" />
-              <strong>{item.name}</strong> - ${item.price}
+              <h3>
+                <strong>{item.name}</strong> - ${item.price}
+              </h3>
             </li>
           ))}
         </ul>
