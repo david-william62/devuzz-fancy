@@ -1,3 +1,3 @@
-import { appwrite } from "./auth/auth";
+import { appwrite } from "./appwrite/handler";
 
 export { appwrite };

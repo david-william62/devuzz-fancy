@@ -81,6 +81,39 @@ class Appwrite {
       throw error;
     }
   }
+
+  async getitems(): Promise<any[]> {
+    try {
+      const res = await this.databases.listDocuments(
+        this.databaseId,
+        this.itemsCollectionId
+      );
+
+      const itemsWithImages = await Promise.all(
+        res.documents.map(async (item) => {
+          try {
+            const imageFile = await this.storage.getFilePreview(
+              config.storageId,
+              item.imageFile
+            );
+            return {
+              name: item.name,
+              price: item.price,
+              image: imageFile.href,
+            };
+          } catch (error) {
+            console.error(`Failed to fetch image for item ${item.$id}`, error);
+            return null;
+          }
+        })
+      );
+
+      return itemsWithImages.filter((item) => item !== null);
+    } catch (error) {
+      console.log("Error fetching items:", error);
+      throw error;
+    }
+  }
 }
 
 export const appwrite = new Appwrite();
