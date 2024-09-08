@@ -26,7 +26,6 @@ function Items() {
           })
       );
 
-      // Wait for all images to load
       await Promise.all(imageLoadPromises);
 
       setItems(itemList);
@@ -45,7 +44,7 @@ function Items() {
     <div>
       <h1>Items</h1>
       {loading ? (
-        <p>Loading...</p> // Display a loading indicator while images are loading
+        <p>Loading...</p>
       ) : items.length > 0 ? (
         <ul>
           {items.map((item) => (
