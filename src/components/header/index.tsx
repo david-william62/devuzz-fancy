@@ -3,7 +3,7 @@ import config from "../../config";
 
 function Header() {
   const sendMail = () => {
-    const url = "mail.google.com/mail";
+    const url = `https://mail.google.com/mail/?view=cm&fs=1&to=e${config.mail}&su=Looking%20to%20buy%20a%20product`;
     window.location.href = url;
   };
   const clearCache = () => {
