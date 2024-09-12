@@ -8,23 +8,23 @@ interface Item {
   image: string;
 }
 
+const CACHE_KEY = "cached_items";
+
 function Items() {
   const [items, setItems] = useState<Item[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
   const getData = async () => {
+    const cachedData = localStorage.getItem(CACHE_KEY);
+    if (cachedData) {
+      setItems(JSON.parse(cachedData));
+      setLoading(false);
+      return;
+    }
     try {
       const itemList = await appwrite.getitems();
-      const imageLoadPromises = itemList.map(
-        (item) =>
-          new Promise((resolve) => {
-            const img = new Image();
-            img.src = item.image;
-            img.onload = () => resolve(true);
-            img.onerror = () => resolve(false);
-          })
-      );
-      await Promise.all(imageLoadPromises);
+      // Store items in cache
+      localStorage.setItem(CACHE_KEY, JSON.stringify(itemList));
       setItems(itemList);
       setLoading(false);
     } catch (error) {
@@ -46,7 +46,13 @@ function Items() {
         <ul className="prods">
           {items.map((item) => (
             <li key={item.name}>
-              <img src={item.image} alt={item.name} width="100" height="100" />
+              <img
+                src={item.image}
+                alt={item.name}
+                width="100"
+                height="100"
+                loading="lazy"
+              />
               <h3>
                 <strong>{item.name}</strong> - ${item.price}
               </h3>

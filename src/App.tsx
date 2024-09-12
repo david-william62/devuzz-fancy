@@ -1,7 +1,7 @@
 import React from "react";
 import { Header } from "./components/header";
 import { Admin } from "./pages/admin";
-import { Login } from "./pages/login"; // Import the Login component
+import { Login } from "./pages/login";
 import { Home } from "./pages/home";
 import {
   BrowserRouter as Router,
@@ -9,7 +9,7 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import { appwrite } from "./lib"; // Import the Appwrite instance
+import { appwrite } from "./lib";
 
 // A higher-order component to protect routes
 const ProtectedRoute = ({ element }: { element: React.ReactElement }) => {
@@ -31,7 +31,7 @@ const ProtectedRoute = ({ element }: { element: React.ReactElement }) => {
   }, []);
 
   if (isAuthenticated === null) {
-    return <p>Loading...</p>; // Optionally add a loading state
+    return <p>Loading...</p>;
   }
 
   return isAuthenticated ? element : <Navigate to="/login" />;

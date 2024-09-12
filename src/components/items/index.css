@@ -5,6 +5,8 @@
 .prods {
   display: grid;
   gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  justify-items: center;
 }
 
 .prods li {
@@ -17,7 +19,8 @@
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   height: 350px;
-  width: 300px;
+  width: 100%;
+  max-width: 300px;
   transition: transform 0.5s ease;
 }
 
@@ -26,14 +29,15 @@
 }
 
 .prods img {
-  margin: 25px;
-  width: 250px;
-  height: auto;
+  margin-top: 25px;
+  height: 200px;
+  width: auto;
   display: block;
 }
 
 .prods h3 {
   font-size: 40px;
+  margin: 20px;
   text-align: center;
   color: rgb(58, 4, 4);
 }

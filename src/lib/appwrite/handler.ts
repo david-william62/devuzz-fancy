@@ -1,6 +1,8 @@
 import { Account, Client, Databases, Storage, ID, Query } from "appwrite";
 import config from "../../config";
 
+const CACHE_KEY = "cached_items"; // Cache key for localStorage
+
 class Appwrite {
   client: Client;
   account: Account;
@@ -75,6 +77,8 @@ class Appwrite {
         ID.unique(),
         { name, price, imageFile: storageRes.$id }
       );
+      // Clear cached items to force a refresh
+      localStorage.removeItem(CACHE_KEY);
       return dbResponse;
     } catch (error) {
       console.error("Failed to upload item", error);
@@ -88,7 +92,6 @@ class Appwrite {
         this.databaseId,
         this.itemsCollectionId
       );
-
       const itemsWithImages = await Promise.all(
         res.documents.map(async (item) => {
           try {
@@ -107,7 +110,6 @@ class Appwrite {
           }
         })
       );
-
       return itemsWithImages.filter((item) => item !== null);
     } catch (error) {
       console.log("Error fetching items:", error);
