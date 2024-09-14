@@ -54,7 +54,7 @@ function Items() {
                 loading="lazy"
               />
               <h3>
-                <strong>{item.name}</strong> - ${item.price}
+                <strong>{item.name}</strong> - ₹{item.price}
               </h3>
             </li>
           ))}
